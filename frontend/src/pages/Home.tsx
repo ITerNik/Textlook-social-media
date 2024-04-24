@@ -1,10 +1,11 @@
 import {Header} from "../widgets/Header.tsx";
+import {Feed} from "../widgets/Feed.tsx";
 
 export function Home() {
     return (
         <>
             <Header />
-            <h1>Home page</h1>
+            <Feed />
         </>
     )
 }

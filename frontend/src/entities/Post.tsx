@@ -1,26 +1,19 @@
-import {useEffect, useState} from "react";
-import axios from "axios";
+import {PostProps} from "../shared/types/postTypes.ts"
+import {AuthorTag} from "../slices/AuthorTag.tsx"
+import test from "../shared/assets/images/logo.png"
+import like from "../shared/assets/icons/love.png"
 
-interface IPost {
-    id: number,
-    content: string,
-    user_id: number,
-    created_at: string,
-    updated_at: string
-}
-
-
-export function Post() {
-    const [posts, setPosts] = useState<IPost[]>([]);
-
-    useEffect( () => {
-        axios.get('http://localhost:8080/handlers/post/get_all_posts.php')
-            .then(res => setPosts(res.data))
-    }, [])
-
+export function Post({post} : PostProps) {
     return (
-        <>
-            {posts && posts.map(post => <p>{post.content}</p>)}
-        </>
+        <div className="p-4 rounded-xl bg-amber-100">
+            <AuthorTag username={'Elon Mask'} img={test} />
+            <div className="pl-8 pt-4 flex flex-col gap-y-4">
+                <p>{post.content}</p>
+                <div className="flex justify-between">
+                    <img src={like} className="w-6 h-6 cursor-pointer"/>
+                    <p className="text-xs self-center">{new Date(Date.parse(post.created_at)).toLocaleString()}</p>
+                </div>
+            </div>
+        </div>
     )
 }
