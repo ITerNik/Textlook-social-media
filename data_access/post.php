@@ -14,7 +14,8 @@ class PostDAO {
     }
 
     function getAll() {
-        $query = "SELECT * FROM {$this->table_name}";
+        $query = "SELECT p.id, p.content, u.image_url, u.username, p.created_at 
+                    FROM {$this->table_name} p JOIN \"user\" u on p.user_id = u.id";
         $statement = $this->connection->prepare($query);
         $statement->execute();
 

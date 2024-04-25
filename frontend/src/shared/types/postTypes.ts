@@ -1,9 +1,9 @@
 export interface IPost {
     id: number,
     content: string,
-    user_id: number,
+    username: string,
+    image_url: string,
     created_at: string,
-    updated_at: string
 }
 
 export interface PostProps {
