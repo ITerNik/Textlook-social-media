@@ -1,4 +1,7 @@
+import {ReactElement} from "react";
+
 export interface INavigationContent {
-    title: string,
+    title: ReactElement | string,
+    icon: string,
     link: string
 }
