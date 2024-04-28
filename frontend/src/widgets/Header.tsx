@@ -30,7 +30,11 @@ export function Header({className = ''} : {className?: string}) {
 
             <ul className="flex h-full justify-between w-[30%]">
                 {navigationContent}
-                <li><ProfilePicture/></li>
+                <li>
+                    <TipButton tip="Профиль">
+                        <ProfilePicture/>
+                    </TipButton>
+                </li>
             </ul>
         </div>
     )

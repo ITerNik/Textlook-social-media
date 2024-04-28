@@ -1,16 +1,16 @@
 import {PostProps} from "../shared/types/postTypes.ts"
 import {AuthorTag} from "../slices/AuthorTag.tsx"
-import like from "../shared/assets/icons/love.png"
+import {LikeButton} from "../features/LikeButton.tsx";
 
 export function Post({post} : PostProps) {
     return (
-        <div className="p-4 rounded-xl bg-amber-100">
-            <AuthorTag username={post.username} img={post.image_url} />
-            <div className="pl-8 pt-4 flex flex-col gap-y-4">
+        <div className="p-8 flex flex-col gap-y-6 text-slate-600 rounded-md bg-white border-[1px] border-slate-300">
+            <AuthorTag username={post.username} img={post.image_url} date={post.created_at}/>
+            <div className="flex flex-col gap-y-6">
                 <p>{post.content}</p>
-                <div className="flex justify-between">
-                    <img src={like} className="w-6 h-6 cursor-pointer" alt="profile-image"/>
-                    <p className="text-xs self-center">{new Date(Date.parse(post.created_at)).toLocaleString()}</p>
+                <div className="flex justify-between border-t-2 border-slate-100 pt-4">
+                    <LikeButton />
+                    {/*<p className="text-xs self-center">{simplifyDate(new Date(post.created_at))}</p>*/}
                 </div>
             </div>
         </div>
