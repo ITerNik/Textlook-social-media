@@ -1,7 +1,20 @@
-import {ReactNode} from "react";
+import {ReactNode, useEffect} from "react";
 import {Header} from "./Header.tsx";
+import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 export function PageFrame({children, className = ''}: {children: ReactNode, className?: string}) {
+    const navigate = useNavigate()
+    useEffect(() => {
+        const token = sessionStorage.getItem('token')
+        axios.get('http://localhost:8080/handlers/auth/auth-check.php', {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
+            .then(res => {sessionStorage.setItem('profile-picture', res.data.image_url)})
+            .catch(() => navigate("/login"))
+    }, [])
     return (
         <div className="grid grid-cols-[80px_1fr_100px] grid-rows-[13vh_87vh] bg-slate-200">
             <Header className="col-span-3"/>

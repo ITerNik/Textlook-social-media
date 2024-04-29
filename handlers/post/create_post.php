@@ -1,14 +1,18 @@
 <?php
-include_once "../../data_access/post.php";
-include_once "../../config/database.php";
+    include_once "../../data_access/post.php";
+    include_once "../../config/database.php";
 
-$db = new DatabaseManager();
-$post_manager = new PostDAO($db->connect());
+    header("Access-Control-Allow-Origin: http://localhost:5173 ");
+    header("Content-Type: application/json; charset=UTF-8");
+    header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-$data = json_decode(file_get_contents("php://input"));
+    $db = new DatabaseManager();
+    $post_manager = new PostDAO($db->connect());
 
-if (!empty($data->content) &&
-    !empty($data->user_id)) {
+    $data = json_decode(file_get_contents("php://input"));
+
+    if (!empty($data->content) &&
+        !empty($data->user_id)) {
 
     $post_manager->content = $data->content;
     $post_manager->user_id = $data->user_id;

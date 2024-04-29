@@ -38,8 +38,6 @@ class UserDAO {
 
         $row = $st->fetch(PDO::FETCH_ASSOC);
 
-        echo $row;
-
         $this->name = $row["username"];
         $this->image_url = $row["image_url"];
     }

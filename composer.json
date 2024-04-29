@@ -1,0 +1,7 @@
+{
+  "name" : "iternik/textlook-media",
+  "minimum-stability": "dev",
+  "require": {
+    "fproject/php-jwt" : "*"
+  }
+}

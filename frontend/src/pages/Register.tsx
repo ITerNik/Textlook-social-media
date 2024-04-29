@@ -9,7 +9,7 @@ export function Register() {
                 {placeholder: 'Отображаемое имя', name: 'login'},
                 {placeholder: 'Пароль', name: 'password'},
                 {placeholder: 'Повторите пароль', name: 'repeated_password'}]}
-                       title="Регистрация" switchFormText={<span>Уже есть аккаунт? <NavLink to="/login" className="font-bold">Войти</NavLink></span>}/>
+                       title="Зарегистрироваться" switchFormText={<span>Уже есть аккаунт? <NavLink to="/login" className="font-bold">Войти</NavLink></span>}/>
         </div>
     )
 }
