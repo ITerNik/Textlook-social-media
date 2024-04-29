@@ -7,9 +7,7 @@
     header("Content-Type: application/json; charset=UTF-8");
     header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-    if(strtoupper($_SERVER["REQUEST_METHOD"]) == "OPTIONS"){
-        die();
-    }
+    if (strtoupper($_SERVER["REQUEST_METHOD"]) == "OPTIONS") die();
 
     $headers = getallheaders();
     $bearer = $headers["Authorization"] ?? '';

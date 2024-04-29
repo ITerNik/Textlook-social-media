@@ -6,7 +6,7 @@ import axios from "axios";
 export function PageFrame({children, className = ''}: {children: ReactNode, className?: string}) {
     const navigate = useNavigate()
     useEffect(() => {
-        const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNX0.i-YjjBWvZhadFJXjXmrzO8s6F1D6zsMjiegQZjbcy2I'//sessionStorage.getItem('token')
+        const token = sessionStorage.getItem('token')
         axios.get('http://localhost:8080/handlers/auth/auth-check.php', {
             headers: {
                 Authorization: 'Bearer ' + token

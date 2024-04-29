@@ -30,8 +30,7 @@ class UserDAO {
         return false;
     }
 
-    function getUserById(int $id): array
-    {
+    function getUserById(int $id): array {
         $query = "SELECT * FROM {$this->table_name} u WHERE u.id = ? LIMIT 1";
         $st = $this->connection->prepare($query);
         $st->bindParam(1, $id);
@@ -42,5 +41,20 @@ class UserDAO {
         return array(
             "username" => $row["username"],
         );
+    }
+
+    function login($username, $password) {
+        $query = "SELECT * FROM {$this->table_name} WHERE username = ? LIMIT 1";
+        $st = $this->connection->prepare($query);
+        $st->bindParam(1, $username);
+
+        $st->execute();
+        if ($st->rowCount() != 0) {
+            $user = $st->fetch(PDO::FETCH_ASSOC);
+            if (password_verify($password, $user['password'])) {
+                return $user['id'];
+            }
+        }
+        return null;
     }
 }
