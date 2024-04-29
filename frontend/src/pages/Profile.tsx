@@ -1,10 +1,10 @@
-import {Header} from "../widgets/Header.tsx";
+import {PageFrame} from "../widgets/PageFrame.tsx";
+import {ProfileHead} from "../entities/ProfileHead.tsx";
 
 export function Profile() {
     return (
-        <>
-            <Header />
-            <h1>Profile page</h1>
-        </>
+        <PageFrame className="p-4">
+            <ProfileHead />
+        </PageFrame>
     )
 }

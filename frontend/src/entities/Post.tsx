@@ -10,7 +10,6 @@ export function Post({post} : PostProps) {
                 <p>{post.content}</p>
                 <div className="flex justify-between border-t-2 border-slate-100 pt-4">
                     <LikeButton />
-                    {/*<p className="text-xs self-center">{simplifyDate(new Date(post.created_at))}</p>*/}
                 </div>
             </div>
         </div>

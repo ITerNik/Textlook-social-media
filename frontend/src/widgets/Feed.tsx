@@ -13,7 +13,7 @@ export function Feed({className = ''} : {className?: string}) {
     }, [])
 
     return (
-        <ul className={`feed flex flex-col p-4 gap-y-4 overflow-y-scroll h-[87vh] ${className}`}>
+        <ul className={`feed flex flex-col p-4 gap-y-4 h-full ${className}`}>
             {posts && posts.map(post => <Post post={post} key={post.id}/>)}
         </ul>
     )
