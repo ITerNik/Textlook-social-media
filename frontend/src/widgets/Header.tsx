@@ -1,16 +1,16 @@
 import {NAVIGATION_CONTENT_VALUES} from "../shared/constants/navigationContentValues.ts";
-import {NavLink} from "react-router-dom";
 import {LogoCard} from "../slices/LogoCard.tsx";
 import {SearchTile} from "../features/SearchTile.tsx";
 import {ProfilePicture} from "../slices/ProfilePicture.tsx";
 import {TipButton} from "../slices/TipButton.tsx";
+import {NavLink} from "react-router-dom";
 
 
 export function Header({className = ''} : {className?: string}) {
     const navigationContent = NAVIGATION_CONTENT_VALUES.map(value => (
             <li key={value.title.toString()}>
                 <TipButton tip={value.title}>
-                    <NavLink to={value.link} className="h-[40%] flex self-center">
+                    <NavLink to={value.link} className="h-[40%] flex self-center" onClick={value.onClick}>
                         <img src={value.icon} alt={value.title.toString()}/>
                     </NavLink>
                 </TipButton>

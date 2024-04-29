@@ -6,9 +6,10 @@ class JWTCoder {
     private $secret_key;
 
     function __construct() {
-        $this->secret_key = getenv('SECRET');
+        $this->secret_key = getenv('SECRET_KEY');
     }
-    function generateToken() {
+    function generateToken(): string
+    {
         $payload = [
             "user_id" => 15
         ];

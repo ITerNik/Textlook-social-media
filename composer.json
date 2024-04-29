@@ -2,6 +2,8 @@
   "name" : "iternik/textlook-media",
   "minimum-stability": "dev",
   "require": {
-    "fproject/php-jwt" : "*"
+    "fproject/php-jwt" : "*",
+    "ext-pdo": "*",
+    "ext-json": "*"
   }
 }

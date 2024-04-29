@@ -6,13 +6,13 @@ import axios from "axios";
 export function PageFrame({children, className = ''}: {children: ReactNode, className?: string}) {
     const navigate = useNavigate()
     useEffect(() => {
-        const token = sessionStorage.getItem('token')
+        const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNX0.i-YjjBWvZhadFJXjXmrzO8s6F1D6zsMjiegQZjbcy2I'//sessionStorage.getItem('token')
         axios.get('http://localhost:8080/handlers/auth/auth-check.php', {
             headers: {
                 Authorization: 'Bearer ' + token
             }
         })
-            .then(res => {sessionStorage.setItem('profile-picture', res.data.image_url)})
+            .then(res => {sessionStorage.setItem('username', res.data.username); console.log(res.data.username)})
             .catch(() => navigate("/login"))
     }, [])
     return (

@@ -5,7 +5,7 @@ import {LikeButton} from "../features/LikeButton.tsx";
 export function Post({post} : PostProps) {
     return (
         <div className="p-8 flex flex-col gap-y-6 text-slate-600 rounded-md bg-white border-[1px] border-slate-300">
-            <AuthorTag username={post.username} img={post.image_url} date={post.created_at}/>
+            <AuthorTag username={post.username} img={`/images/${post.username}.png`} date={post.created_at}/>
             <div className="flex flex-col gap-y-6">
                 <p>{post.content}</p>
                 <div className="flex justify-between border-t-2 border-slate-100 pt-4">

@@ -30,15 +30,17 @@ class UserDAO {
         return false;
     }
 
-    function get() {
+    function getUserById(int $id): array
+    {
         $query = "SELECT * FROM {$this->table_name} u WHERE u.id = ? LIMIT 1";
         $st = $this->connection->prepare($query);
-        $st->bindParam(1, $this->id);
+        $st->bindParam(1, $id);
         $st->execute();
 
         $row = $st->fetch(PDO::FETCH_ASSOC);
 
-        $this->name = $row["username"];
-        $this->image_url = $row["image_url"];
+        return array(
+            "username" => $row["username"],
+        );
     }
 }
