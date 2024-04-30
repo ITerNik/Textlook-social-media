@@ -23,7 +23,7 @@
     $post_manager = new PostDAO($db->connect());
 
 
-    $user_id = $user_manager->getIdByUsername($decoded->username);
+    $user_id = $user_manager->getInfoByUsername($decoded->username)["id"];
 
     if (!$user_id) {
         http_response_code(404);

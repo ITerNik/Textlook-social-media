@@ -24,14 +24,13 @@ class UserDAO {
         return false;
     }
 
-    function getIdByUsername($username) {
-        $query = "SELECT id FROM {$this->table_name} WHERE username = ?";
+    function getInfoByUsername($username) {
+        $query = "SELECT id, name, surname FROM {$this->table_name} WHERE username = ?";
         $statement = $this->connection->prepare($query);
         $statement->bindParam(1, $username);
         $statement->execute();
 
-        $result = $statement->fetch(PDO::FETCH_ASSOC);
-        return $result["id"];
+        return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
     function checkUserExist($username): bool {

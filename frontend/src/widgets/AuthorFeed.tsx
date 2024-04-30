@@ -13,7 +13,7 @@ export function AuthorFeed() {
     }, [])
 
     return (
-        <div className={`flex flex-col w-full gap-y-4 h-full`}>
+        <div className={`flex flex-col w-full gap-y-4`}>
             {posts && posts.map(post => <Post post={post} key={post.id}/>)}
         </div>
     )
