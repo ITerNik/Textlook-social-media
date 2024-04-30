@@ -3,26 +3,20 @@
 class UserDAO {
     private $connection;
     private $table_name = "\"user\"";
-    public $id;
-
-    public $name;
-    public $password;
-
-    public $image_url;
-
-    public $created;
 
     function __construct($connection) {
         $this->connection = $connection;
     }
 
-    function register() {
-        $sql = "INSERT INTO {$this->table_name} (username, password, image_url) VALUES (?, ?, ?)";
-        $statement = $this->connection->prepare($sql);
+    function register($username, $password, $name, $surname): bool {
+        $query = "INSERT INTO {$this->table_name} (username, password, name, surname) VALUES (?, ?, ?, ?)";
+        $statement = $this->connection->prepare($query);
 
-        $statement->bindParam(1, $this->name);
-        $statement->bindParam(2, password_hash($this->password, PASSWORD_DEFAULT));
-        $statement->bindParam(3, $this->image_url);
+        $statement->bindParam(1, $username);
+        $password_hash = password_hash($password, PASSWORD_DEFAULT);
+        $statement->bindParam(2, $password_hash);
+        $statement->bindParam(3, $name);
+        $statement->bindParam(4, $surname);
 
         if ($statement->execute()) {
             return true;
@@ -30,20 +24,16 @@ class UserDAO {
         return false;
     }
 
-    function getUserById(int $id): array {
-        $query = "SELECT * FROM {$this->table_name} u WHERE u.id = ? LIMIT 1";
+    function checkUserExist($username): bool {
+        $query = "SELECT * FROM {$this->table_name} u WHERE u.username = ? LIMIT 1";
         $st = $this->connection->prepare($query);
-        $st->bindParam(1, $id);
+        $st->bindParam(1, $username);
         $st->execute();
 
-        $row = $st->fetch(PDO::FETCH_ASSOC);
-
-        return array(
-            "username" => $row["username"],
-        );
+        return $st->rowCount() != 0;
     }
 
-    function login($username, $password) {
+    function login($username, $password): bool {
         $query = "SELECT * FROM {$this->table_name} WHERE username = ? LIMIT 1";
         $st = $this->connection->prepare($query);
         $st->bindParam(1, $username);
@@ -51,10 +41,10 @@ class UserDAO {
         $st->execute();
         if ($st->rowCount() != 0) {
             $user = $st->fetch(PDO::FETCH_ASSOC);
-            if (password_verify($password, $user['password'])) {
-                return $user['id'];
+            if (password_verify($password, $user["password"])) {
+                return true;
             }
         }
-        return null;
+        return false;
     }
 }

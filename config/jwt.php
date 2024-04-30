@@ -8,10 +8,10 @@ class JWTCoder {
     function __construct() {
         $this->secret_key = getenv('SECRET_KEY');
     }
-    function generateToken(): string
+    function generateToken($username): string
     {
         $payload = [
-            "user_id" => 15
+            "username" => $username
         ];
         return JWT::encode($payload, $this->secret_key);
     }

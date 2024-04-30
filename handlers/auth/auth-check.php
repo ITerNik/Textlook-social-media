@@ -26,9 +26,11 @@ try {
 
     $db = new DatabaseManager();
     $user_manager = new UserDAO($db->connect());
-
-    echo json_encode($user_manager->getUserById($decoded->user_id));
-
+    if ($user_manager->checkUserExist($decoded->username)) {
+        echo json_encode(array("username" => $decoded->username));
+    } else {
+        http_response_code(403);
+    }
 } catch (Exception $e) {
     http_response_code(403);
     echo "Access denied: " . $e->getMessage();

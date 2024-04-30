@@ -12,7 +12,7 @@ export function PageFrame({children, className = ''}: {children: ReactNode, clas
                 Authorization: 'Bearer ' + token
             }
         })
-            .then(res => {sessionStorage.setItem('username', res.data.username); console.log(res.data.username)})
+            .then(res => {sessionStorage.setItem('username', res.data.username)})
             .catch(() => navigate("/login"))
     }, [])
     return (

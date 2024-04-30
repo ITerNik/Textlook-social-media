@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../config/database.php';
+    require_once '../../config/database.php';
     require_once '../../data_access/user.php';
     require_once  '../../config/jwt.php';
 
@@ -15,13 +15,11 @@ require_once '../../config/database.php';
     $db = new DatabaseManager();
     $user_manager = new UserDAO($db->connect());
 
-    $user_id = $user_manager->login($data->username, $data->password);
-
-    if (!$user_id) {
+    if (!$user_manager->login($data->username, $data->password)) {
         http_response_code(403);
         die();
     }
 
     $jwtCoder = new JWTCoder();
-    echo json_encode(array("token" => $jwtCoder->generateToken()));
+    echo json_encode(array("token" => $jwtCoder->generateToken($data->username)));
 

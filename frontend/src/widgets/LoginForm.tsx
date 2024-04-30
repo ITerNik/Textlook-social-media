@@ -1,26 +1,28 @@
 import {Input} from "../slices/Input.tsx";
-import {ChangeEvent, ReactNode, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {ChangeEvent, Dispatch, ReactNode, SetStateAction} from "react";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
+
 
 interface LoginFormProps {
     title: string,
-    requestTemplate: object
-    url: string
+    url: string,
+    setRequest: Dispatch<SetStateAction<any>>
+    request: object
+    placeHolders: object
+    errors: object
     switchFormText?: ReactNode
 }
 
 export function LoginForm(props: LoginFormProps) {
     const navigate = useNavigate()
-    const [request, setRequest] = useState(props.requestTemplate)
 
     function inputChangeHandler(event: ChangeEvent<HTMLInputElement>) {
         const {name, value} = event.target
-        setRequest({...request, [name]: value})
+        props.setRequest({...props.request, [name] : value})
     }
     function onSubmitHandler() {
-        console.log(request)
-        axios.post(`http://localhost:8080/handlers/auth/${props.url}.php`, request)
+        axios.post(`http://localhost:8080/handlers/auth/${props.url}.php`, props.request)
             .then(res => {sessionStorage.setItem("token", res.data.token); navigate('/')})
             .catch(err => alert(err))
     }
@@ -33,7 +35,9 @@ export function LoginForm(props: LoginFormProps) {
                     {props.title}
                 </span>
             </h2>
-            {Object.entries(props.requestTemplate).map(([key, val]) => <Input name={key} placeholder={val} onChange={inputChangeHandler} key={key}/>)}
+            {Object.entries(props.request).map(([key, val]) =>
+                <Input name={key} onChange={inputChangeHandler} errors={props.errors[key]} key={key}/>
+            )}
             {props.switchFormText && <p className="flex-1 flex justify-center items-center text-xl font-light p-2 bg-slate-400">
                 {props.switchFormText}
             </p>}
