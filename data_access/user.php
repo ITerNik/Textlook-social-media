@@ -24,6 +24,16 @@ class UserDAO {
         return false;
     }
 
+    function getIdByUsername($username) {
+        $query = "SELECT id FROM {$this->table_name} WHERE username = ?";
+        $statement = $this->connection->prepare($query);
+        $statement->bindParam(1, $username);
+        $statement->execute();
+
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result["id"];
+    }
+
     function checkUserExist($username): bool {
         $query = "SELECT * FROM {$this->table_name} u WHERE u.username = ? LIMIT 1";
         $st = $this->connection->prepare($query);

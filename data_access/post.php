@@ -4,10 +4,7 @@ class PostDAO {
     private $connection;
     private $table_name = "post";
     public $id;
-    public $user_id;
-    public $content;
     public $likes;
-    public $created;
 
     function __construct($connection) {
         $this->connection = $connection;
@@ -15,7 +12,7 @@ class PostDAO {
 
     function getAll() {
         $query = "SELECT p.id, p.content, u.image_url, u.username, p.created_at 
-                    FROM {$this->table_name} p JOIN \"user\" u on p.user_id = u.id";
+                    FROM {$this->table_name} p JOIN \"user\" u on p.user_id = u.id ORDER BY p.created_at DESC";
         $statement = $this->connection->prepare($query);
         $statement->execute();
 
@@ -24,7 +21,7 @@ class PostDAO {
 
     function getByUsername($username) {
         $query = "SELECT p.id, p.content, u.image_url, u.username, p.created_at 
-                    FROM {$this->table_name} p JOIN \"user\" u on p.user_id = u.id WHERE u.username = ?";
+                    FROM {$this->table_name} p JOIN \"user\" u on p.user_id = u.id WHERE u.username = ? ORDER BY p.created_at DESC";
         $statement = $this->connection->prepare($query);
         $statement->bindParam(1, $username);
         $statement->execute();
@@ -36,16 +33,12 @@ class PostDAO {
         }
     }
 
-    function create() {
-        $query = "INSERT INTO {$this->table_name} (content, user_id, created_at) VALUES (?, ?, ?)";
+    function create($content, $user_id) {
+        $query = "INSERT INTO {$this->table_name} (content, user_id) VALUES (?, ?)";
         $st = $this->connection->prepare($query);
 
-        $this->content = htmlspecialchars(strip_tags($this->content));
-        $this->created = htmlspecialchars(strip_tags($this->created));
-
-        $st->bindParam(1, $this->content);
-        $st->bindParam(2, $this->user_id);
-        $st->bindParam(3, $this->created);
+        $st->bindParam(1, $content);
+        $st->bindParam(2, $user_id);
 
         if ($st->execute()) {
             return true;
