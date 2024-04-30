@@ -43,9 +43,9 @@ export function Input({className, name, password = '', onChange} : InputProps) {
     const validate = INPUT_VALIDATORS.get(name)
 
     return (
-        <div className="relative">
+        <div className="relative flex-1">
             <input type="text"
-                   className={`w-full text-slate-400 border-t-2 border-slate-200 p-4 flex-1 text-center ${className}`}
+                   className={`w-full text-slate-400 border-t-2 border-slate-200 p-4 h-full text-center ${className}`}
                    placeholder={PLACEHOLDERS.get(name)} onChange={(e) => {onChange(e); setErrors(validate(e.target.value))}} name={name}/>
             {errors && <div className="absolute right-5 rounded-full top-1/2 -translate-y-1/2 bg-red-600 h-6 w-6 p-1">
                 <TipButton tip={errors}>

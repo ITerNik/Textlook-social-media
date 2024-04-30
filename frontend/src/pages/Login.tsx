@@ -32,9 +32,9 @@ export function Login() {
                 <span className="transition-all ease group-hover:scale-105">Войти</span>
                 </h2>
                 {Object.keys(request).map(key =>
-                    <Input name={key} onChange={inputChangeHandler} key={key}/>
+                    <Input name={key} onChange={inputChangeHandler} key={key} className="p-6"/>
                 )}
-                <p className="flex-1 flex justify-center items-center text-xl font-light p-2 bg-slate-400">
+                <p className="flex-1 flex justify-center items-center text-xl p-2 font-light bg-slate-400">
                     <span>Нет аккаунта? <NavLink to="/register" className="font-bold">Зарегистрируйся</NavLink></span>
                 </p>
             </form>

@@ -3,7 +3,7 @@ import {PageFrame} from "../widgets/PageFrame.tsx";
 
 export function Home() {
     return (
-        <PageFrame>
+        <PageFrame className="p-4">
             <Feed />
         </PageFrame>
     )

@@ -22,6 +22,20 @@ class PostDAO {
         return $statement;
     }
 
+    function getByUsername($username) {
+        $query = "SELECT p.id, p.content, u.image_url, u.username, p.created_at 
+                    FROM {$this->table_name} p JOIN \"user\" u on p.user_id = u.id WHERE u.username = ?";
+        $statement = $this->connection->prepare($query);
+        $statement->bindParam(1, $username);
+        $statement->execute();
+
+        if ($statement->rowCount() != 0) {
+            return $statement->fetchALL(PDO::FETCH_ASSOC);
+        } else {
+            return null;
+        }
+    }
+
     function create() {
         $query = "INSERT INTO {$this->table_name} (content, user_id, created_at) VALUES (?, ?, ?)";
         $st = $this->connection->prepare($query);

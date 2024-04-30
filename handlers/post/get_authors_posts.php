@@ -9,14 +9,11 @@
     $db = new DatabaseManager();
     $post_manager = new PostDAO($db->connect());
 
-    $statement = $post_manager->getAll();
-    $rows = $statement->rowCount();
+    $posts = $post_manager->getByUsername($_GET["username"]);
 
-    if ($rows > 0) {
-        echo json_encode($statement->fetchALL(PDO::FETCH_ASSOC));
+    if ($posts) {
+        echo json_encode($posts);
     } else {
         http_response_code(404);
         echo json_encode(array("message" => "Постов пока нет"), JSON_UNESCAPED_UNICODE);
     }
-
-

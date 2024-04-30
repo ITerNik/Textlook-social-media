@@ -12,7 +12,7 @@ export function ProfilePicture() {
         <NavLink to="/profile">
             <TipButton tip="Профиль">
                 <div className="flex h-[70%] rounded-full self-center bg-slate-300">
-                        <img src={`/images/${picture}.png`} alt="profile-picture"/>
+                        <img src={`/images/${picture || 'Anonimous'}.png`} alt="profile-picture"/>
                 </div>
             </TipButton>
         </NavLink>

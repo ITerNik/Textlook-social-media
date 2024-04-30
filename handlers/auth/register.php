@@ -22,3 +22,6 @@
     $jwtCoder = new JWTCoder();
     echo json_encode(array("token" => $jwtCoder->generateToken($data->username)));
 
+    copy(__DIR__ . "/../../frontend/public/images/Anonimous.png", __DIR__ . "/../../frontend/public/images/" . $data->username . ".png");
+
+
