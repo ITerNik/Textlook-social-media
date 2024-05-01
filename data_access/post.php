@@ -27,6 +27,24 @@ class PostDAO {
         return $statement->rowCount() > 0;
     }
 
+    function likePost($user_id, $post_id): bool {
+        $query = "INSERT INTO post_like (user_id, post_id) VALUES (?, ?)";
+        $statement = $this->connection->prepare($query);
+        $statement->bindValue(1, $user_id);
+        $statement->bindValue(2, $post_id);
+
+        return $statement->execute();
+    }
+
+    function removeLike($user_id, $post_id): bool {
+        $query = "DELETE FROM post_like WHERE user_id = ? AND post_id = ?";
+        $statement = $this->connection->prepare($query);
+        $statement->bindValue(1, $user_id);
+        $statement->bindValue(2, $post_id);
+
+        return $statement->execute();
+    }
+
     function getByUsername($username) {
         $query = "SELECT p.id, u.name, u.surname, u.username, p.content, p.created_at, count(l.user_id) AS likes
                     FROM {$this->table_name} p JOIN \"user\" u on p.user_id = u.id 
