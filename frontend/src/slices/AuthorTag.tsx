@@ -15,7 +15,7 @@ export function AuthorTag({username, img, date}: AuthorTagProps) {
 
     return (
         <div className="flex justify-start gap-x-6 items-center">
-            <img src={img} className="w-12 h-12 rounded-full"/>
+            <img src={img} className="w-12 h-12 rounded-full bg-slate-300"/>
             <div>
                 <p className="font-bold text-slate-600">{username}</p>
                 <p className="text-[14px]   text-slate-500">{simplifyDate(new Date(date))}</p>

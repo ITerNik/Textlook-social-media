@@ -9,7 +9,7 @@ export function Feed({className = ''} : {className?: string}) {
     useEffect(() => {
         axios.get('http://localhost:8080/handlers/post/get_all_posts.php')
             .then(res => setPosts(res.data))
-            .catch(_ => setPosts([{id: 0, content: 'No posts found', username: '', image_url: '', created_at: ''}]))
+            .catch(_ => setPosts([{id: 0, content: 'No posts found', username: '', name: '', surname: '', created_at: ''}]))
     }, [])
 
     return (

@@ -1,6 +1,6 @@
 <?php
-
     include_once "../../data_access/post.php";
+    include_once "../../data_access/user.php";
     include_once "../../config/database.php";
 
     header("Access-Control-Allow-Origin: http://localhost:5173 ");
@@ -9,14 +9,10 @@
 
     $db = new DatabaseManager();
     $post_manager = new PostDAO($db->connect());
+    $user_manager = new UserDAO($db->connect());
 
-    $data = json_decode(file_get_contents("php://input"));
+    $user = $user_manager->getInfoByUsername($_GET["username"]);
 
-    if ($post_manager->delete($data->post_id)) {
-        http_response_code(200);
-        echo json_encode(array("message" => "Пост удалён успешно"), JSON_UNESCAPED_UNICODE);
-    }
-else {
-    http_response_code(503);
-    echo json_encode(array("message" => "Не удалось удалить пост"));
-}
+    $is_liked = $post_manager->checkLike($user["id"], $_GET["post_id"]);
+
+    echo json_encode($is_liked);

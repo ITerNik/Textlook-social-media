@@ -1,11 +1,14 @@
 export interface IPost {
     id: number,
     content: string,
+    name: string,
+    surname: string,
     username: string,
-    image_url: string,
+    likes: number,
     created_at: string,
 }
 
 export interface PostProps {
-    post: IPost
+    post: IPost,
+    editable?: boolean
 }
